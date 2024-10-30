@@ -1,9 +1,9 @@
-Name: YOUR NAME HERE
+Name: Lucas Ying
 
-| Date    |  Time  |                                     Update |
-|:--------|:------:|-------------------------------------------:|
-| April 5 | 9-10pm | I tried to write abstract, efficient code. |
-|         |        |                                            |
+| Date       |    Time     |                                                        Update |
+|:-----------|:-----------:|--------------------------------------------------------------:|
+| October 30 | 9:00-9:45am | Thought through process of creating my own map using buckets. |
+|            |             |                                                               |
 
 
 To add a new row to the table, click into a cell and then hit shift-enter.
