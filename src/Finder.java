@@ -1,5 +1,8 @@
+import com.sun.jdi.Value;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.security.Key;
 import java.util.LinkedList;
 /**
  * Finder
@@ -12,19 +15,28 @@ import java.util.LinkedList;
 public class Finder {
 
     private static final String INVALID = "INVALID KEY";
-    private final int numberOfBuckets = 10000;
+    private int tableSize = 16;
+    private int numberOfKVPs;
     public final int R = 12;
     public final int P = 100;
+    private Key[] keys;
+    private Value[] vals;
 
-    private final LinkedList<KeyValuePair>[] bucketArray;
 
     public Finder() {
-        // initialize the array of linked lists
-        bucketArray = new LinkedList[numberOfBuckets];
-        for (int i = 0; i < numberOfBuckets; i++) {
-            bucketArray[i] = new LinkedList<>();
+        keys =
+    }
+
+    private static class KeyValuePair {
+        String key;
+        String value;
+
+        KeyValuePair(String key, String value){
+            this.value = value;
+            this.key = key;
         }
     }
+
 
     // reads CSV file and build the hash table
     public void buildTable(BufferedReader br, int keyCol, int valCol) throws IOException {
@@ -34,9 +46,8 @@ public class Finder {
             if (columns.length > Math.max(keyCol, valCol)){
                 String key = columns[keyCol].trim();
                 String value = columns[valCol].trim();
-
+                keys =
                 int index = hash(key);
-                bucketArray[index].add(new KeyValuePair(key, value));
             }
         }
         br.close();
@@ -54,6 +65,26 @@ public class Finder {
         return INVALID;
     }
 
+    public void insert(Key key, Value val) {
+        // do all this while table is <= 50% capacity
+        // else --> larger than 50% call resize()
+        // if the spot is empty then insert at that spot in the table
+        // if the spot is full check the spot to the right and continue
+        // if the spot is
+    }
+
+    // Code Resize
+    public void resize() {
+        // dont forget to rehash before resize
+
+    }
+
+    public Value search() {
+
+    }
+
+
+
     private int hash(String key) {
         long hashValue = 0;
         // Use a hash to compute hash value
@@ -63,14 +94,5 @@ public class Finder {
         return (int)(hashValue % numberOfBuckets);
     }
 
-    private static class KeyValuePair {
-        String key;
-        String value;
-
-        KeyValuePair(String key, String value){
-            this.value = value;
-            this.key = key;
-        }
-    }
 
 }
