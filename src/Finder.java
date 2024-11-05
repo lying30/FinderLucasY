@@ -16,27 +16,16 @@ public class Finder {
 
     private static final String INVALID = "INVALID KEY";
     private int tableSize = 16;
-    private int numberOfKVPs;
-    public final int R = 12;
-    public final int P = 100;
-    private Key[] keys;
-    private Value[] vals;
+    private int numberOfKVPs = 0;
+    public final int R = 107;
+    private String[] keys;
+    private String[] values;
 
 
     public Finder() {
-        keys =
+        keys = new String[tableSize];
+        values = new String[tableSize];
     }
-
-    private static class KeyValuePair {
-        String key;
-        String value;
-
-        KeyValuePair(String key, String value){
-            this.value = value;
-            this.key = key;
-        }
-    }
-
 
     // reads CSV file and build the hash table
     public void buildTable(BufferedReader br, int keyCol, int valCol) throws IOException {
@@ -46,8 +35,7 @@ public class Finder {
             if (columns.length > Math.max(keyCol, valCol)){
                 String key = columns[keyCol].trim();
                 String value = columns[valCol].trim();
-                keys =
-                int index = hash(key);
+                insert(key, value);
             }
         }
         br.close();
@@ -65,21 +53,26 @@ public class Finder {
         return INVALID;
     }
 
-    public void insert(Key key, Value val) {
+    public void insert(String key, String val) {
         // do all this while table is <= 50% capacity
         // else --> larger than 50% call resize()
         // if the spot is empty then insert at that spot in the table
         // if the spot is full check the spot to the right and continue
         // if the spot is
+        int index = hash(key);
+        while (keys[index] != null) {
+            if (keys[index].equals(key)){
+                values[index] = val;
+                return;
+            }
+            index = (index + 1) % tableSize;
+        }
+
     }
 
     // Code Resize
     public void resize() {
         // dont forget to rehash before resize
-
-    }
-
-    public Value search() {
 
     }
 
@@ -89,9 +82,9 @@ public class Finder {
         long hashValue = 0;
         // Use a hash to compute hash value
         for (int i: key.toCharArray()) {
-            hashValue = (R * hashValue + i) % P;
+            hashValue = (R * hashValue + i) % tableSize;
         }
-        return (int)(hashValue % numberOfBuckets);
+        return (int) hashValue;
     }
 
 
