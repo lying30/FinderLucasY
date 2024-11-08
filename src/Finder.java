@@ -6,7 +6,7 @@ import java.io.IOException;
  * A puzzle written by Zach Blick
  * for Adventures in Algorithms
  * At Menlo School in Atherton, CA
- * Completed by: [Lucas Ying]
+ * Completed by: [Lucas Ying] on 11/7/24
  **/
 
 public class Finder {
